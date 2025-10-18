@@ -1,4 +1,4 @@
-# Linux Fundamentals Module — Ibrahim Ullah
+# Linux Fundamentals Module
 
 Summary: Notes and practical work for the Linux module (CoderCo).  
 Contents:
