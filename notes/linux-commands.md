@@ -13,7 +13,8 @@
 **`cd ..`** – Move up one directory  
 
 **`mkdir <dir>`** – Create a directory  
-**`mkdir -p dir/subdir`** – Create nested directories  
+**`mkdir -p dir/subdir`** – Create nested directories 
+**`mktemp -d`** – Create a temporary directory with a random name  
 **`rmdir <dir>`** – Remove empty directory  
 **`rm -r <dir>`** – Remove directory recursively  
 **`touch <file>`** – Create a file  
@@ -38,6 +39,7 @@
 **`less <file>`** – View large files page by page  
 
 **`grep "pattern" <file>`** – Search for text  
+- **`grep -E '=+'`** – Show lines that contain 1 or more '=' characters
 **`grep "^txt" <file>`** – Lines starting with “txt”  
 **`grep "txt$" <file>`** – Lines ending with “txt”  
 
@@ -47,7 +49,7 @@
 **`sort <file>`** – Sort entries  
 **`sort -nr <file>`** – Sort numerically (descending)  
 **`uniq -c <file>`** – Count unique occurrences  
-**`head -1 <file>`** – Show top entry  
+**`head -1 <file>`** – Show top entry
 
 ---
 
@@ -87,6 +89,61 @@
 **`sudo chown newuser <file>`** – Change owner of file
 **`sudo chgrp admin <file>`** – Change group
 **`chown user:group <file>`** – Change both at once
+
+---
+
+# Advanced / Helpful commands
+
+## File reading & Inspection
+
+- **`./-`** – Read a file with special characters in current directory
+- **`cat "./--spaces in this directory--"`** – Read file with spaces
+- **`file ./*`** – Show file types in current directory
+- **`file */{,.}*`** – Include hidden files
+- **`strings <file>`** – Extract human-readable strings from binaries
+- **`xxd <file>`** – View file in hex
+- **`xxd -r <file>`** – Convert hex back to binary
+
+## Searching & Filtering
+
+- **`find / -type f`** – Only look for files
+- **`find -size 33c`** – Files of 33 bytes
+- **`find . -size 1033 ! -executable`** – Non-executable 1033 byte files
+- **`find -user <user> -group <group>`** – Match owner and group
+- **`grep ASCII`** – Only human-readable files
+- **`grep -v "with very long lines"`** – Exclude lines
+- **`cat <file> | grep "millionth"`** – Search for text
+- **`cat <file> | grep "millionth"`** – Search for text
+- **`2>/dev/null`** – Ignore permission denied errors to keep the output clean
+
+## Sorting & Counting
+- **`du -b -a | grep 1033`** – All files in bytes
+- **`sort <file> | uniq -u`** – Filter out everything except lines that appear once
+- **`wc -l <file>`** – Count lines
+
+## Encoding & Decoding
+- **`cat <file> | base64 --decode`** – Decode Base64
+- **`cat <file> | tr 'A-Za-z' 'N-ZA-Mn-za-m'`** – ROT13
+
+## Networking
+
+- **`nc <host> <port>`** – Open TCP connection to the port
+- **`openssl s_client -connect <host>:<port>`** – Connect to the TLS/SSL connection running on port
+- **`openssl s_client -connect <host>:<port> -quiet`** – Hide extra info
+- **`nmap -p31000-32000 localhost`** – Scan port range
+- **`nmap -sV localhost -p31000-32000`** – Detect service/version
+- **`ssh`** – Connect to remote server
+
+
+## Archives
+
+| Format  | Magic            | Extension | Decompress |
+|-------- |----------------- |-----------|------------|
+| `Gzip`  | `1F 8B 08`       | `.gz`     | `gzip -d`  |
+| `Bzip2` | `425A 68 (BZh)`  | `.bz2`    | `bzip2 -d` |
+| `Tar`   | contains `ustar` | `.tar`    | `tar -xf`  |
+
+- `tar -xvf <file.tar>` – Extract archive
 
 ---
 
@@ -148,55 +205,3 @@
 
 ---
 
-## Advanced / Helpful commands
-
-# File reading & Inspection
-
-- **`./-`** – Read a file with special characters in current directory
-- **`cat "./--spaces in this directory--"`** – Read file with spaces
-- **`file ./*`** – Show file types in current directory
-- **`file */{,.}*`** – Include hidden files
-- **`strings <file?`** – Extract human-readable strings from binaries
-- **`xxd <file>`** – View file in hex
-- **`xxd -r <file>`** – Convert hex back to binary
-
-# Searching & Filtering
-
-- **`find / -type f`** – All files
-- **`find -size 33c`** – Files of 33 bytes
-- **`find . -size 1033 ! -executable`** – Non-executable 1033 byte files
-- **`find -user <user> -group <group>`** – Match owner and group
-- **`grep ASCII`** – Only human-readable files
-- **`grep -v "with very long lines"`** – Exclude lines
-- **`cat <file> | grep "millionth"`** – Search for text
-
-# Sorting & Counting
-- **`du -b -a | grep 1033`** – All files in bytes
-- **`sort <file> | uniq -u`** – Unique lines only 
-- **`wc -l <file>`** – Count lines
-
-# Encoding & Decoding
-- **`cat <file> | base64 --decode`** – Decode Base64
-- **`cat <file> | tr 'A-Za-z' 'N-ZA-Mn-za-m'`** – ROT13
-- **``** – 
-- **``** – 
-
-# Networking
-
-- **`nc <host> <port>`** – Open TCP connection
-- **`openssl s_client -connect <host>:<port>`** – TLS/SSL connection
-- **`openssl s_client -connect <host>:<port> -quiet`** – Hide extra info
-- **`nmap -p31000-32000 localhost`** – Scan port range
-- **`nmap -sV localhost -p31000-32000`** – Detect service/version
-
-# Archives
-
-| Format  | Magic            | Extension | Decompress |
-|-------- |----------------- |-----------|------------|
-| `Gzip`  | `1F 8B 08`       | `.gz`     | `gzip -d`  |
-| `Bzip2` | `425A 68 (BZh)`  | `.bz2`    | `bzip2 -d` |
-| `Tar`   | contains `ustar` | `.tar`    | `tar -xf`  |
-
-- `tar -xvf <file.tar>` – Extract archive
-
----
